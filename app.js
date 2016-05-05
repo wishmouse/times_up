@@ -34,7 +34,8 @@ app.use(passport.session());
 passport.use(new FacebookStrategy({
     clientID:'1718250611751481',
     clientSecret:'16603379730537292c6536951b8499c8',
-    callbackURL: "http://localhost:3000/auth/facebook/callback"
+    callbackURL: "http://localhost:3000/auth/facebook/callback",
+    profileFields: ['id', 'displayName', 'first_name', 'birthday', 'email', 'gender', 'hometown']
   },
   function(accessToken, refreshToken, profile, cb) {
     console.log('-------------------------------------------')

@@ -8,10 +8,16 @@ module.exports = {
       database: 'death'
     }
   },
+  test: {
+    client: 'pg',
+    connection: {
+      database: 'death'
+    }
+  },
 
-   production: {
+  production: {
     client: 'postgresql',
-    connection: process.env.DATABASE_URL
+    connection: process.env.DATABASE_URL,
     pool: {
       min: 2,
       max: 10
@@ -20,4 +26,5 @@ module.exports = {
       tableName: 'knex_migrations'
     }
   }
+
 };
