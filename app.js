@@ -2,83 +2,88 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var hbs = require('express-hbs')
+var hbs = require('express-hbs');
 var app = express();
 var knex = require('knex');
 var Promise = this.Promise || require('promise');
 var agent = require('superagent-promise')(require('superagent'), Promise);
 var fs = require('fs');
 var cheerio = require('cheerio');
+var passport= require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
+var server = require('http').createServer(app); // create the server
+var session = require('express-session');
 
-var readFileName = __dirname + '/data/readData.json'
-var writeFileName = __dirname + '/data/writeData.json'
-
-var readFilePromise = Promise.denodeify(fs.readFile)
-var writeFilePromise = Promise.denodeify(fs.writeFile)
+var readFile = Promise.denodeify(fs.readFile);
+var writeFile = Promise.denodeify(fs.writeFile);
 
 require('dotenv').config();
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 
+//===================================
+// ===========Oauth =================
+//===================================
 
+passport.use(new FacebookStrategy({
+    clientID:'1718250611751481',
+    clientSecret:'16603379730537292c6536951b8499c8',
+    callbackURL: "http://localhost:3000/auth/facebook/callback"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    console.log('-------------------------------------------')
+    console.log('!verify function being called')
+    console.log('profile:', profile)
+    var user = profile
+    return cb(null, user)
+  }
+)),
 
-app.get('/scrape', function(req, res){
+passport.serializeUser(function(user, cb) {
+  console.log('-------------------------------------------')
+  console.log('!serializer being called')
+  console.log('user:', user)
+  cb(null, user);
+});
 
-function promiseRead () {
-  readFilePromise(readFilePromise, 'utf8')
-    .then( function (results) {
-      return results
-    })
-    .catch( function (err) {
-      throw err
-    })
-}
+passport.deserializeUser(function(obj, cb) {
+  console.log('-------------------------------------------')
+  console.log('!deserializer being called')
+  console.log('obj', obj)
+  cb(null, obj);
+});
 
-function promiseWrite (obj) {
-  var stringified = JSON.stringify(obj)
-
-  writeFilePromise( writeFileName, stringified )
-    .catch(function(err){
-      console.log('error')
-    })
-}
-
-
-readFilePromise(readFileName, 'utf8')
-  .then ( function (readFile) {
-    var url = JSON.parse(readFile).url
-
-    return url
-  })
-  .then ( function (url) {
-
-    agent.get(url)
-  })
-  .then( function (res) {
-    var $ = cheerio.load(res.text);
-    var links = $('a')
-
-    var arr = []
-
-    for( i = 0; i < links.length; i++) {
-      arr.push(links[i].attribs.href)
-    }
-    return arr
-  })
-  .then( function (linkArr) {
-    promiseWrite( linkArr )
-  })
-  .catch( function (err) { throw err } )
-
-  res.send('check the console')
-  })
-
-
-app.listen(3000, function(){
-console.log("well its not dead.... 3000")
+// //=================================
+// //=========ROUTES =================
+// //=================================
+app.get('/', function(req, res){
+  res.render('index')
 })
 
+app.get('/secret', function(req, res){
+  res.render('secret')
+})
+
+app.get('/auth/facebook',  //sent to FB to authenticate
+  passport.authenticate('facebook')
+);
+
+
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/auth/facebook' }),
+  function(req, res) { // Successful authentication, redirect home.
+    res.redirect('/secret')
+  }
+);
+
+app.listen(3000, function(){
+  console.log("well its not dead.... 3000")
+})
 
 module.exports = app;
