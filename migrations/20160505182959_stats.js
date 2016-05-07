@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
       table.increments('id')
       table.integer('userId')
       table.string('causeOfDeath')
-      table.integer('age')
+      table.string('age')
       table.integer('rank')
       table.string('gender')
       console.log('stats table was created')

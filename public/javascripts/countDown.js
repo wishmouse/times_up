@@ -1,12 +1,13 @@
 
 //===========birthday / deathday=============
 
-var birthday = "11-27-1970"
+var birthday = "06-03-1951"
 var birthdayFormatted = new Date(birthday)
 
 var deathDate = new Date(birthday).setFullYear(birthdayFormatted.getFullYear() + 81 )
 var deathDateFormatted = new Date(deathDate)
 
+console.log("your death date:", deathDateFormatted)
 
 //================age & assigning values ====
 
@@ -14,21 +15,23 @@ var today = new Date()
 var difference = today-birthdayFormatted
 var age = Math.floor(difference/31536000000);
 
-if (age => 15 && <= 24){
- return "15-24"
-} else if {
-  (age => 25 && =< 34)
-  return "25-34"
-  } else if {
-    (age => 35 && =< 44)
-    return "35-44"
-    } else if {
-      (age => 45 && =< 54)
-       return "45-54"
-     }else if {
-        (age => 55 && =< 64)
-          return "55-64"
-      }
+console.log('your age:', age)
+
+// if (age => 15 && <= 24){
+//  return "15-24"
+// } else if {
+//   (age => 25 && =< 34)
+//   return "25-34"
+//   } else if {
+//     (age => 35 && =< 44)
+//     return "35-44"
+//     } else if {
+//       (age => 45 && =< 54)
+//        return "45-54"
+//      }else if {
+//         (age => 55 && =< 64)
+//           return "55-64"
+//       }
 
 
 
@@ -67,9 +70,9 @@ var countdown = function(deathDateFormatted, timer, callback){
       callback();
         }
     } else {
-      if(!timer){
-        // timer = setInterval(calculate, second); //count down...
-          }
+      // if(!timer){
+      //   timer = setInterval(calculate, second); //count down...
+      //     }
         }
 
     data = {

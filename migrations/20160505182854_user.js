@@ -7,6 +7,7 @@ exports.up = function(knex, Promise) {
       table.string('email')
       table.date('birthdate')
       table.string('gender')
+      table.string('facebookId')
       table.string('hashedPassword')
       console.log('users table was created')
     })
@@ -17,3 +18,6 @@ exports.down = function(knex, Promise) {
     console.log('users table was dropped')
   })
 };
+
+
+

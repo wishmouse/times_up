@@ -35,14 +35,15 @@ passport.use(new FacebookStrategy({
     clientID:'1718250611751481',
     clientSecret:'16603379730537292c6536951b8499c8',
     callbackURL: "http://localhost:3000/auth/facebook/callback",
-    profileFields: ['id', 'displayName', 'first_name', 'birthday', 'email', 'gender', 'hometown']
+    profileFields: ['id', 'displayName', 'first_name', 'email', 'gender', 'hometown']
 
   },
   function(accessToken, refreshToken, profile, cb) {
     // console.log('-------------------------------------------')
-    // console.log('!verify function being called')
-    // console.log('profile:', profile)
-    console.log('xxxxxx', profile.gender) // yes yes it works.
+    // console.log('id = facebookId', profile.id)
+    // console.log('displayName = userName', profile.displayName)
+    // console.log('givenName = firstName', profile.name.givenName)
+    // console.log('gender = gender', profile.gender)
     var user = profile
     return cb(null, user)
   }
