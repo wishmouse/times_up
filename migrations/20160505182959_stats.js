@@ -1,7 +1,6 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTableIfNotExists('stats', function(table){
       table.increments('id')
-      table.integer('userId')
       table.string('causeOfDeath')
       table.string('age')
       table.integer('rank')

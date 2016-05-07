@@ -1,31 +1,44 @@
 <H2>enter your birthdate</H2>
+index.hbs
 
-
-<form method="post" action="/">
+<form method="post" action="/index">
   Birthday:
   <input type="date" name="birthday" id='birthday'>
   <input type="submit">
 </form>
+Thank {{firstName}} some fun facts:
 
+you were born on: {{birthday}}<br>
+your are currently: {{age}}<br>
+assuming you live to 81, you expected demise is on the {{deathday}}<br>
+
+and to make it worse, here is a countdown!
 <body>
-  <span id ="years">00</span>
-  <span id ="days">00</span>
-  <span id ="minutes">00</span>
-  <span id ="seconds">00</span>
+  <span id ="years">{{years}} 00</span>
+  <span id ="months">{{months}} 00</span>
+  <span id ="days">{{days}} 00</span>
+  <span id ="minutes">{{minutes}} 00</span>
+  <span id ="seconds">{{seconds}} 00</span>
 </body>
 
 <button onlick="countdown()">Click</button>
+<br>
+<br>
+top causes of death in {{gender}} (gender) between {{ageBracket}} (agebracket)
+{{#each causeOfDeath}}
+  {{causeOfDeath}}  ** :  cause **
+{{/each}}
+
 
 <h4>time to create a bucket list!<h5>
 
-<form method="post" action="/" encType="multipart/form-data">
-  <input id="browse" name="file" type="file" onChange="previewFile()"/>
+<form method="post" action="/index" encType="multipart/form-data">
+  <input id="browse" name="file" type="file" onChange="previewFile()"/><br>
   <img src="" height="200" width="200"></img>
   <div id="preview"></div>
-  <input id="notes" type="text" name="notes" value="bucket list .................................."></input>
+  <input id="notes" type="text" name="notes" placeholder="bucket list .................................."></input>
   <input type='submit' value='submit'></input>
 </form>
-
 
 
 <script src="./javascripts/bucketList.js"></script>

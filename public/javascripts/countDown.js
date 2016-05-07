@@ -3,6 +3,7 @@
 
 var birthday = "06-03-1951"
 var birthdayFormatted = new Date(birthday)
+console.log("birthdayFormatted",birthdayFormatted)
 
 var deathDate = new Date(birthday).setFullYear(birthdayFormatted.getFullYear() + 81 )
 var deathDateFormatted = new Date(deathDate)
@@ -16,24 +17,6 @@ var difference = today-birthdayFormatted
 var age = Math.floor(difference/31536000000);
 
 console.log('your age:', age)
-
-// if (age => 15 && <= 24){
-//  return "15-24"
-// } else if {
-//   (age => 25 && =< 34)
-//   return "25-34"
-//   } else if {
-//     (age => 35 && =< 44)
-//     return "35-44"
-//     } else if {
-//       (age => 45 && =< 54)
-//        return "45-54"
-//      }else if {
-//         (age => 55 && =< 64)
-//           return "55-64"
-//       }
-
-
 
 //================countdown =================
 

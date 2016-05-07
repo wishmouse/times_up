@@ -3,6 +3,7 @@ exports.up = function(knex, Promise) {
       table.increments('id')
       table.integer('userId')
       table.string('comment')
+      table.string('imageUrl')
       console.log('bucketList table was created')
     })
 };
