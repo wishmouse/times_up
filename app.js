@@ -36,34 +36,37 @@ passport.use(new FacebookStrategy({
     clientSecret:'16603379730537292c6536951b8499c8',
     callbackURL: "http://localhost:3000/auth/facebook/callback",
     profileFields: ['id', 'displayName', 'first_name', 'birthday', 'email', 'gender', 'hometown']
+
   },
   function(accessToken, refreshToken, profile, cb) {
-    console.log('-------------------------------------------')
-    console.log('!verify function being called')
-    console.log('profile:', profile)
+    // console.log('-------------------------------------------')
+    // console.log('!verify function being called')
+    // console.log('profile:', profile)
+    console.log('xxxxxx', profile.gender) // yes yes it works.
     var user = profile
     return cb(null, user)
   }
 )),
 
 passport.serializeUser(function(user, cb) {
-  console.log('-------------------------------------------')
-  console.log('!serializer being called')
-  console.log('user:', user)
+  // console.log('-------------------------------------------')
+  // console.log('!serializer being called')
+  // console.log('user:', user)
   cb(null, user);
 });
 
 passport.deserializeUser(function(obj, cb) {
-  console.log('-------------------------------------------')
-  console.log('!deserializer being called')
-  console.log('obj', obj)
+  // console.log('-------------------------------------------')
+  // console.log('!deserializer being called')
+  // console.log('obj', obj)
   cb(null, obj);
 });
 
-// //=================================
-// //=========ROUTES =================
-// //=================================
+//=================================
+//=========ROUTES =================
+//=================================
 app.get('/', function(req, res){
+
   res.render('index')
 })
 
@@ -82,6 +85,25 @@ app.get('/auth/facebook/callback',
     res.redirect('/secret')
   }
 );
+
+app.post('/', function(req, res){
+var birthday = req.body.birthday
+console.log("req.body.birthday :", birthday)
+  res.render('index')
+})
+
+//=================================
+//=========COUNTDOWN ==============
+//=================================
+
+
+
+
+
+
+//=================================
+//=========SERVER =================
+//=================================
 
 app.listen(3000, function(){
   console.log("well its not dead.... 3000")
