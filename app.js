@@ -4,7 +4,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var hbs = require('express-hbs');
 var app = express();
-var knex = require('knex');
 var Promise = this.Promise || require('promise');
 var agent = require('superagent-promise')(require('superagent'), Promise);
 var fs = require('fs');
@@ -17,6 +16,11 @@ var session = require('express-session');
 
 var readFile = Promise.denodeify(fs.readFile);
 var writeFile = Promise.denodeify(fs.writeFile);
+
+
+var knexConfig = require('./knexfile')
+var env = process.env.NODE_ENV || 'development'
+var knex = require('knex')(knexConfig[env]);
 
 require('dotenv').config();
 app.use(express.static(path.join(__dirname, 'public')));
@@ -167,10 +171,14 @@ app.post('/index', function(req, res){
       }
       console.log("the data 5: ", data )
    };
-    calculate()
+    calculate() // extract function out....
   }
   countdown()
-  res.render('index',{ causeOfDeath: causeOfDeath, birthday: birthdayFormatted, age: age, deathday: deathDateFormatted})
+  knex('stats').where({age: "15-24"})
+  .then(function(data){
+    console.log(data)
+    res.render('index',{ causeOfDeath: data, birthday: birthdayFormatted, age: age, deathday: deathDateFormatted})
+  })
 })
 
 
