@@ -170,14 +170,9 @@ app.post('/index', function(req, res){
     calculate()
   }
   countdown()
-  //=============================
-  //=============datatbase ======
-  //=============================
-  knex('stats').where('id', 1)
-  .then(function(data){
   res.render('index',{ causeOfDeath: causeOfDeath, birthday: birthdayFormatted, age: age, deathday: deathDateFormatted})
 })
-})
+
 
 
 
