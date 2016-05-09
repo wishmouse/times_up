@@ -1,5 +1,11 @@
+<html>
+<head>
+  <title>Bucket List</title>
+  <link rel='stylesheet' type='text/css' href='../stylesheets/style.css'></link>
+</head>
+  <body>
+
 <H2>enter your birthdate</H2>
-index.hbs
 
 <form method="post" action="/index">
   Birthday:
@@ -25,9 +31,10 @@ and to make it worse, here is a countdown!
 <br>
 <br>
 top causes of death in {{user.gender}}'s between {{ageBracket}} (agebracket)<br>
-<strong>{{#each causeOfDeath}}
-  {{causeOfDeath}} <br>
-{{/each}}
+<strong>
+  {{#each stats}}
+    {{causeOfDeath}} <br>
+  {{/each}}
 </strong>
 
 
@@ -42,9 +49,9 @@ top causes of death in {{user.gender}}'s between {{ageBracket}} (agebracket)<br>
 </form>
 
 <strong>
-  {{#each buckets}}
-  {{comment}}
-  {{imageUrl}} <br>
+{{#each buckets}}
+  {{comment}} <br>
+  <image src ='{{imageUrl}}' height='200' width='250' <br>
 {{/each}}
 <strong>
 
@@ -54,4 +61,6 @@ top causes of death in {{user.gender}}'s between {{ageBracket}} (agebracket)<br>
 
 
 
+</body>
+</html>
 

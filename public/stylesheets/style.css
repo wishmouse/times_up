@@ -1,8 +1,14 @@
 body {
   padding: 50px;
+  background-color: #593650;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
+h1, h2, h3 {
+  color: #F0DDD3;
+  text-decoration: none;
 }
+
+
+
+https://color.adobe.com/Tema-Color-18-color-theme-8034445/

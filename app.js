@@ -113,27 +113,9 @@ app.get('/index/:id', function(req, res) {
   .then(function(data){
     knex('stats').where({age: "15-24"})
       .then(function(data){
-        var rankId = {}
-        for (i = 0; i < data.length; i++) {
-        rankId = data[i]
-        console.log("rankId++++++:",rankId)
-        // var sortedRank = data.sort(function(a, b){
-        //   if (a. rank > b.rank){
-        //     return 1;
-        //   }
-        //   if(a.rank < b.rank){
-        //     return -1;
-        //   }
-        //   return 0;
-        // })
-        // return sortedRank
-        // console.log("sortedRank ========", sortedRank)
-    }
-console.log("rankId*********:",rankId)
-
-    // res.render('index',{ data: data, birthday: birthdayFormatted, age: age, deathday: deathDateFormatted})
-  })
-   res.render('index',{user: req.user, buckets: data, stats: data} ) //user id
+        console.log("data***:", data)
+      })
+   res.render('index',{user: req.user, buckets: data})
  })
 })
 //=================================
