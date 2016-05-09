@@ -1,9 +1,14 @@
-// var express = require('express');
-// var router = express.Router();
+var express = require('express');
+var router = express.Router();
 
-// /* GET home page. */
-// router.get('/', function(req, res, next) {
-//   res.render('index', { title: 'Express' });
-// });
+/* GET all buckets for user. */
+router.get('/index', function(req, res, next) {
+  knex('buckets').select()
+  .then(function(data){
+res.json(data)
+  })
+});
 
-// module.exports = router;
+
+
+module.exports = router;

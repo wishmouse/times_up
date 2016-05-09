@@ -1,76 +1,62 @@
+  var birthday = req.body.birthday
+  var birthdayFormatted = new Date(birthday)
+  console.log("birthdayFormatted",birthdayFormatted)
 
-//===========birthday / deathday=============
+  var deathDate = new Date(birthday).setFullYear(birthdayFormatted.getFullYear() + 81 )
+  var deathDateFormatted = new Date(deathDate)
 
-var birthday = "06-03-1951"
-var birthdayFormatted = new Date(birthday)
-console.log("birthdayFormatted",birthdayFormatted)
+  console.log("your death date:", deathDateFormatted)
 
-var deathDate = new Date(birthday).setFullYear(birthdayFormatted.getFullYear() + 81 )
-var deathDateFormatted = new Date(deathDate)
+  //================age & assigning values ====
 
-console.log("your death date:", deathDateFormatted)
+  var today = new Date()
+  var difference = today-birthdayFormatted
+  var age = Math.floor(difference/31536000000);
 
-//================age & assigning values ====
+  console.log('your age:', age)
 
-var today = new Date()
-var difference = today-birthdayFormatted
-var age = Math.floor(difference/31536000000);
+  //================countdown =================
+  var countdown = function(deathDateFormatted, timer, callback){
+    second = 1000,
+    minute = second * 60,
+    hour = minute * 60,
+    day = hour * 24,
+    year = day * 365,
+    // console.log("console.log 1:",second, minute, hour, day, year)
+    end =  new Date(deathDate),
+    timer,
+    // console.log('end 2 :', end )
+    calculate = function(){
+      var now = new Date(),
+      remaining = end.getTime()-now.getTime(),
+      data;
+      // console.log('remaining 4 :', remaining )
+      if(isNaN(end)){
+        console.log("err");
+        return;
+      }
 
-console.log('your age:', age)
+      if(remaining <= 0){
+        clearInterval(timer);
+        if(typeof callback === 'function'){
+        callback();
+          }
+      } else {
+        // if(!timer){
+        //   timer = setInterval(calculate, second); //count down...
+        //     }
+          }
 
-//================countdown =================
-
-
-var countdown = function(deathDateFormatted, timer, callback){
-  second = 1000,
-  minute = second * 60,
-  hour = minute * 60,
-  day = hour * 24,
-  year = day * 365,
-
-// console.log("console.log 1:",second, minute, hour, day, year)
-
-  end =  new Date(deathDate),
-  timer,
-
-  // console.log('end 2 :', end )
-
-  calculate = function(){
-    var now = new Date(),
-    remaining = end.getTime()-now.getTime(),
-    data;
-
-    // console.log('remaining 4 :', remaining )
-
-    if(isNaN(end)){
-      console.log("err");
-      return;
-    }
-
-    if(remaining <= 0){
-      clearInterval(timer);
-      if(typeof callback === 'function'){
-      callback();
-        }
-    } else {
-      // if(!timer){
-      //   timer = setInterval(calculate, second); //count down...
-      //     }
-        }
-
-    data = {
-      'years': Math.floor(remaining / year),
-      'days': Math.floor((remaining % year) / day),
-      'hours': Math.floor((remaining % day) / hour),
-      'minutes': Math.floor((remaining % hour) / minute),
-      'seconds': Math.floor((remaining % minute) / second)
-    }
-    console.log("the data 5: ", data )
- };
-
-  calculate()
-}
-countdown()
-
-
+      data = {
+        'years': Math.floor(remaining / year),
+        'days': Math.floor((remaining % year) / day),
+        'hours': Math.floor((remaining % day) / hour),
+        'minutes': Math.floor((remaining % hour) / minute),
+        'seconds': Math.floor((remaining % minute) / second)
+      }
+      // console.log("the data 5: ", data )
+   };
+    calculate()
+  }
+  countdown()
 

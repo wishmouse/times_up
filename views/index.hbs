@@ -6,7 +6,7 @@ index.hbs
   <input type="date" name="birthday" id='birthday'>
   <input type="submit">
 </form>
-Thank {{firstName}} some fun facts:
+Thank <strong>{{user.firstName}}</strong> some fun facts:
 
 <strong>you were born on:</strong> {{birthday}}<br>
 <strong>your are currently:</strong> {{age}}<br>
@@ -24,10 +24,11 @@ and to make it worse, here is a countdown!
 <button onlick="countdown()">Click</button>
 <br>
 <br>
-top causes of death in {{gender}} (gender) between {{ageBracket}} (agebracket)
-{{#each causeOfDeath}}
-  {{causeOfDeath}}  ** :  cause **
+top causes of death in {{user.gender}}'s between {{ageBracket}} (agebracket)<br>
+<strong>{{#each causeOfDeath}}
+  {{causeOfDeath}} <br>
 {{/each}}
+</strong>
 
 
 <h4>time to create a bucket list!<h5>
@@ -39,6 +40,13 @@ top causes of death in {{gender}} (gender) between {{ageBracket}} (agebracket)
   <input id="notes" type="text" name="notes" placeholder="bucket list .................................."></input>
   <input type='submit' value='submit'></input>
 </form>
+
+<strong>
+  {{#each buckets}}
+  {{comment}}
+  {{imageUrl}} <br>
+{{/each}}
+<strong>
 
 
 <script src="./javascripts/bucketList.js"></script>

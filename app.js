@@ -42,16 +42,32 @@ passport.use(new FacebookStrategy({
     profileFields: ['id', 'displayName', 'first_name', 'email', 'gender', 'hometown']
 
   },
-  function(accessToken, refreshToken, profile, cb) {
+  function(accessToken, refreshToken, profile, callback) {
     // console.log('-------------------------------------------')
     // console.log('id = facebookId', profile.id)
     // console.log('displayName = userName', profile.displayName)
     // console.log('givenName = firstName', profile.name.givenName)
     // console.log('gender = gender', profile.gender)
-    var user = profile
-    return cb(null, user)
+    knex('users').select('*').where({
+      facebookId: profile.id
+    }).then(function (resp){
+      if(resp.length === 0){
+        var user = {
+          facebookId: profile.id,
+          userName: profile.displayName,
+          firstName: profile.name.givenName,
+          gender: profile.gender
+        }
+
+        knex('users').insert(user).then(function(resp){
+          callback(null, user)
+        })
+      } else {
+        callback(null, resp[0])
+      }
+    })
   }
-)),
+))
 
 passport.serializeUser(function(user, cb) {
   // console.log('-------------------------------------------')
@@ -76,7 +92,8 @@ app.get('/', function(req, res){
 })
 
 app.get('/secret', function(req, res){
-  res.render('secret')
+  console.log('req.user:', req.user)
+  res.render('secret',{userId: req.user.id})
 })
 
 app.get('/auth/facebook',  //sent to FB to authenticate
@@ -91,12 +108,35 @@ app.get('/auth/facebook/callback',
   }
 );
 
-app.get('/index', function(req, res) {
-   res.render('index') //user id
- })
+app.get('/index/:id', function(req, res) {
+  knex('buckets').where('userId', req.user.id)
+  .then(function(data){
+    knex('stats').where({age: "15-24"})
+      .then(function(data){
+        var rankId = {}
+        for (i = 0; i < data.length; i++) {
+        rankId = data[i]
+        console.log("rankId++++++:",rankId)
+        // var sortedRank = data.sort(function(a, b){
+        //   if (a. rank > b.rank){
+        //     return 1;
+        //   }
+        //   if(a.rank < b.rank){
+        //     return -1;
+        //   }
+        //   return 0;
+        // })
+        // return sortedRank
+        // console.log("sortedRank ========", sortedRank)
+    }
+console.log("rankId*********:",rankId)
 
+    // res.render('index',{ data: data, birthday: birthdayFormatted, age: age, deathday: deathDateFormatted})
+  })
+   res.render('index',{user: req.user, buckets: data, stats: data} ) //user id
+ })
+})
 //=================================
-//========= POST routes ===========
 //=================================
 
 app.post('/', function(req, res){
@@ -104,89 +144,20 @@ app.post('/', function(req, res){
   res.render('/secret')
 })
 
-app.post('/index', function(req, res){
-  var birthday = req.body.birthday
-  var birthdayFormatted = new Date(birthday)
-  console.log("birthdayFormatted",birthdayFormatted)
+// app.get('/index/:id', function(req, res){
 
-  var deathDate = new Date(birthday).setFullYear(birthdayFormatted.getFullYear() + 81 )
-  var deathDateFormatted = new Date(deathDate)
+// })
 
-  console.log("your death date:", deathDateFormatted)
-
-  //================age & assigning values ====
-
-  var today = new Date()
-  var difference = today-birthdayFormatted
-  var age = Math.floor(difference/31536000000);
-
-  console.log('your age:', age)
-
-  //================countdown =================
-
-
-  var countdown = function(deathDateFormatted, timer, callback){
-    second = 1000,
-    minute = second * 60,
-    hour = minute * 60,
-    day = hour * 24,
-    year = day * 365,
-
-  // console.log("console.log 1:",second, minute, hour, day, year)
-
-    end =  new Date(deathDate),
-    timer,
-
-    // console.log('end 2 :', end )
-
-    calculate = function(){
-      var now = new Date(),
-      remaining = end.getTime()-now.getTime(),
-      data;
-
-      // console.log('remaining 4 :', remaining )
-
-      if(isNaN(end)){
-        console.log("err");
-        return;
-      }
-
-      if(remaining <= 0){
-        clearInterval(timer);
-        if(typeof callback === 'function'){
-        callback();
-          }
-      } else {
-        // if(!timer){
-        //   timer = setInterval(calculate, second); //count down...
-        //     }
-          }
-
-      data = {
-        'years': Math.floor(remaining / year),
-        'days': Math.floor((remaining % year) / day),
-        'hours': Math.floor((remaining % day) / hour),
-        'minutes': Math.floor((remaining % hour) / minute),
-        'seconds': Math.floor((remaining % minute) / second)
-      }
-      console.log("the data 5: ", data )
-   };
-    calculate() // extract function out....
-  }
-  countdown()
-  knex('stats').where({age: "15-24"})
-  .then(function(data){
-    console.log(data)
-    res.render('index',{ causeOfDeath: data, birthday: birthdayFormatted, age: age, deathday: deathDateFormatted})
-  })
-})
-
-
+  // knex('buckets').where({userId: 1})
+  // .then(function(data){
+  //   res.render('index', {buckets: data, imageUrl:image, comment:comment})
+  //   })
+// })
 
 
 //=================================
-//=========SERVER =================
 //=================================
+
 
 app.listen(3000, function(){
   console.log("well its not dead.... 3000")
