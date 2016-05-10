@@ -1,24 +1,41 @@
+var momentCountdown = require('moment-countdown')
 var moment = require('moment');
 moment().format();
-
 
 function dateToDayOfWeek(date){
     return moment(date).format('dddd')
 }
 
+function yourAge(dateOfBirth){
+  return moment(dateOfBirth).fromNow()
+}
 
-function yourAge(date){ // receive birthday
-  console.log('==================================')
-  console.log("moment......",moment(date).fromNow())
+function deathDate(dateOfBirth){
+  return moment(dateOfBirth).add(81.251, 'years').format('dddd Do MMMM YYYY')
 }
 
 
-// module.exports = dateToDayOfWeek
+function countdownTimer(dateOfBirth){
+    setInterval(function(){
+      var deathDate = moment(dateOfBirth).add(81.251, 'years')
+      //setting countdown
+      var years = moment.duration(deathDate - moment()).years()
+      var months = moment.duration(deathDate - moment()).months()
+      var days = moment.duration(deathDate - moment()).days()
+      var minutes = moment.duration(deathDate - moment()).minutes()
+      var seconds = moment.duration(deathDate - moment()).seconds()
+    }, 1000
+    )
+    console.log('setInterval:', setInterval)
+  return setInterval
+}
 
 
 module.exports = {
   dateToDayOfWeek:dateToDayOfWeek,
-  yourAge:yourAge
+  yourAge:yourAge,
+  deathDate:deathDate,
+  countdownTimer:countdownTimer
 }
 
 

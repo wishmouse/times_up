@@ -7,8 +7,33 @@ body {
 h1, h2, h3 {
   color: #F0DDD3;
   text-decoration: none;
+  font-family: 'Righteous', cursive;
 }
 
+
+.signIn{
+  background-image: url('/stylesheets/banner.jpg')
+}
+
+
+#toIndex{
+  text-decoration: none;
+  border-radius: 20px;
+  border-color: #D9C8BF;
+  background-color: #A66583;
+
+}
+
+#birthdaySumbit{
+  background-color: #A66583;
+}
+
+#birthday{
+   border-radius: 10px;
+   border-color: #D9C8BF;
+   height: 50px;
+   width: 200px;
+}
 
 
 https://color.adobe.com/Tema-Color-18-color-theme-8034445/

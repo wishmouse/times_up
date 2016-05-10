@@ -115,16 +115,26 @@ app.get('/index/:id', function(req, res) {
     knex('stats').where({age: "15-24"})
       .then(function(response){
         console.log("stats:response.age ", response)
-          knex('buckets').insert({comments: req.body.notes, imageUrl: req.body.url})
+          knex('buckets').insert({comments: req.body.comments, imageUrl: req.body.imageUrl})
           .then(function(addBucket){
-            console.log('notes; ',req.body.notes)
-            console.log('url: ',req.body.url)
+            console.log('notes; ',req.body.comments)
+            console.log('url: ',req.body.imageUrl)
             console.log('userId:',req.session.userId)
             })
 
  res.render('index',{user: req.user, buckets: data, stats:response})
       })
  })
+})
+
+app.post('/index/:id', function(req, res){
+  knex('buckets').insert({comments: req.body.comments, imageUrl: req.body.imageUrl})
+  .then(function(addBucket){
+     console.log('notes; ',req.body.comments)
+     console.log('url: ',req.body.imageUrl)
+     console.log('userId:',req.session.userId)
+  res.render('index',{user: req.user, buckets: data, stats:response})
+  })
 })
 //=================================
 // ===========post an bucketlist===

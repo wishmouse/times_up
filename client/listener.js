@@ -12,7 +12,9 @@ function listen(){
     var birthday = $('#timer input[name=birthday]').val()
     console.log("birthday: ", birthday)
     var day = dateHelpers.dateToDayOfWeek(birthday)
-    console.log('day', day)
+    var yourAge = dateHelpers.yourAge(birthday)
+    var deathDate = dateHelpers.deathDate(birthday)
+    var countdownTimer = dateHelpers.countdownTimer(birthday)
     });
 
 
