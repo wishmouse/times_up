@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -112,9 +112,9 @@ app.get('/auth/facebook/callback',
 app.get('/index/:id', function(req, res) {
   knex('buckets').where('userId', req.user.id)
   .then(function(data){
-    knex('stats').where({age: "15-24"})
+    knex('stats').where({gender: "female"})
       .then(function(response){
-        console.log("stats:response.age ", response)
+        console.log("stats:response.female ", response)
           knex('buckets').insert({comments: req.body.comments, imageUrl: req.body.imageUrl})
           .then(function(addBucket){
             console.log('notes; ',req.body.comments)

@@ -3,8 +3,3 @@ var index = require('../views/index.hbs')
 
 
 
-
-
-// module.exports = {
-
-// }

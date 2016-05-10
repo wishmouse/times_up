@@ -9,28 +9,49 @@
   <script src="/bundle.js"></script>
 </head>
   <body>
-<div class="container">
-  <div class="row">
-    <div class="twelve columns">
-      <H2>enter your birthdate</H2><input type="date" name="birthday" id='birthday'>
-      <input type="submit" id="birthdaySubmit">
-      <form method="post" action="/index"> </form>
+<div id='timer'>
+  <div class="container">
+    <div class="row">
+      <div class="twelve columns">
+        <center><H2>enter your birthdate:</H2>
+        <input type="date" name="birthday" id='birthday'><center>
+        <input type="submit" id="birthdaySubmit">
+      </div>
     </div>
   </div>
 </div>
 
 
+<div class="container">
+  <div class="row">
+    <div class="twelve columns">
+     <p>Hey {{user.firstName}} her some "fun" facts:</p>
+    </div>
+  </div>
+  <div class='row'>
+    <div class="six columns">
+      <p> you were born on a <p><br>
+          <div id='day'></div>
+    </div>
+    <div class="six columns">
+      <p> around <p><br>
+        <div id='yourAge'></div>
+          {{yourAge}}
+    </div>
+  </div>
+   <div class='row'>
+    <div class="six columns">
+      <p> assuming you live to 81, your expected demise is on the:<p><br>
+          <div id='deathDate'></div>
+    </div>
+  </div>
 </div>
 
-
-<div id = 'timer'>
-
-  Thank <strong>{{user.firstName}}</strong> some fun facts:
-
-  <strong>you were born on a </strong> {{day}} {{yourAge}}</strong><br>
-  <strong>assuming you live to 81, you expected demise is on the: </strong> {{deathday}}<br>
+  </strong><br>
+<p>
 
   and to make it worse, here is a countdown!
+  <div id='countdownTimer'></div>
   <body>
     <span id ="years">{{years}} 00</span>
     <span id ="months">{{months}} 00</span>
@@ -41,19 +62,15 @@
 </div>
 <br>
 <br>
-top causes of death in {{user.gender}}'s between {{stats.age}}(stats.age bracket)<br>
+</p>
+<p>
+top causes of death in {{user.gender}}'s: <br>
 <strong>
-****************
-{{#each stats}}
-      {{age}} <br>
-  {{/each}}
-************
-
   {{#each stats}}
       {{causeOfDeath}} <br>
   {{/each}}
 </strong>
-
+</p>
 
 <h4>time to create a bucket list!</h4>
 
@@ -75,7 +92,7 @@ top causes of death in {{user.gender}}'s between {{stats.age}}(stats.age bracket
 </strong>
 
 
-
+<p>
 
 </body>
 </html>
