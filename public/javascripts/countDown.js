@@ -59,4 +59,3 @@
     calculate()
   }
   countdown()
-

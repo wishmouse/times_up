@@ -13,6 +13,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var server = require('http').createServer(app); // create the server
 var session = require('express-session');
+var router = require('express').Router();
 
 var readFile = Promise.denodeify(fs.readFile);
 var writeFile = Promise.denodeify(fs.writeFile);
@@ -92,7 +93,7 @@ app.get('/', function(req, res){
 })
 
 app.get('/secret', function(req, res){
-  console.log('req.user:', req.user)
+  // console.log('req.user:', req.user)
   res.render('secret',{userId: req.user.id})
 })
 
@@ -112,29 +113,35 @@ app.get('/index/:id', function(req, res) {
   knex('buckets').where('userId', req.user.id)
   .then(function(data){
     knex('stats').where({age: "15-24"})
-      .then(function(data){
-        console.log("data***:", data)
+      .then(function(response){
+        console.log("stats:response.age ", response)
+          knex('buckets').insert({comments: req.body.notes, imageUrl: req.body.url})
+          .then(function(addBucket){
+            console.log('notes; ',req.body.notes)
+            console.log('url: ',req.body.url)
+            console.log('userId:',req.session.userId)
+            })
+
+ res.render('index',{user: req.user, buckets: data, stats:response})
       })
-   res.render('index',{user: req.user, buckets: data})
  })
 })
 //=================================
+// ===========post an bucketlist===
 //=================================
 
-app.post('/', function(req, res){
+app.post('/index/:id', function(req, res){
+  knex('buckets').insert({comments:req.body.comments})
+    .then(function(addBucket){
+        console.log('comments; ',req.body.comments)
+        console.log('imageUrl: ',req.body.imagUrl)
+        console.log('userId:',req.session.userId)
+    })
 
-  res.render('/secret')
+
+  res.render('index', xxx)
 })
 
-// app.get('/index/:id', function(req, res){
-
-// })
-
-  // knex('buckets').where({userId: 1})
-  // .then(function(data){
-  //   res.render('index', {buckets: data, imageUrl:image, comment:comment})
-  //   })
-// })
 
 
 //=================================
