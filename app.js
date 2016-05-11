@@ -104,19 +104,17 @@ app.get('/index/:id', function(req, res) {
   .then(function(data){
     knex('stats').where({gender: "female"})
       .then(function(response){
-          console.log("req.body: ", req.body)
-          knex('buckets').insert({comments: req.body.comments, imageUrl: req.body.imageUrl})
-          .then(function(addBucket){
-          })
-            res.render('index',{user: req.user, buckets:data, stats:response})
+        console.log("lines 107:", data)
+          res.render('index',{user: req.user, buckets:data, stats:response})
       })
   })
 })
 
 app.post('/index', function(req, res){
-  knex('buckets').insert({comments: req.body.comments, imageUrl: req.body.imageUrl})
-  .then(function(addBucket){
-    res.render('index',{user: req.user, buckets:data, stats:response})
+
+  knex('buckets').insert({comment: req.body.comment, imageUrl: req.body.imageUrl, userId:req.user.id})
+  .then(function(data){
+    res.redirect('/index/'+req.user.id)
   })
 })
 ///=================================
