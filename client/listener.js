@@ -20,15 +20,11 @@ function listen(){
     $('#day').append(day)
     $('#yourAge').append(yourAge)
     $('#deathDate').append(deathDate)
-    $('countdownTimer').append(countdownTimer)
      });
-
-
 
   $('#countdown').click(function(e){ //already have a click function here??
     console.log('start timer')
-    e.preventDefault()
-    controller.countdown(listen)
+    var countdownTimer = dateHelpers.countdownTimer(birthday)
   })
 }
 

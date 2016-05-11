@@ -1,6 +1,8 @@
 var momentCountdown = require('moment-countdown')
 var moment = require('moment');
-moment().format();
+var $ = require('jquery')
+
+moment() .format();
 
 function dateToDayOfWeek(date){
     return moment(date).format('dddd')
@@ -24,11 +26,17 @@ function countdownTimer(dateOfBirth){
       var days = moment.duration(deathDate - moment()).days()
       var minutes = moment.duration(deathDate - moment()).minutes()
       var seconds = moment.duration(deathDate - moment()).seconds()
+      $('#years').text(years)
+      $('#months').text(months)
+      $('#days').text(months)
+      $('#minutes').text(minutes)
+      $('#seconds').text(seconds)
     }, 1000
     )
-    console.log('setInterval:', setInterval)
+
   return setInterval
 }
+
 
 
 module.exports = {
