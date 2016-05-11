@@ -5,7 +5,7 @@ exports.seed = function(knex, Promise) {
     knex('buckets').del(),
 
     // Inserts seed entries
-     knex('buckets').insert({id: 11, userId: 1, comment: 'New York: Have to see Times Square, Museum of Natural History, ice skate at Rockefeller Center and pizza from the Bronx and a Rueben Sandwich Katz deli.', imageUrl: 'http://www.hercampus.com/sites/default/files/1016/03/31/New-York.jpg'}),
+     knex('buckets').insert({id: 11, userId: 1, comment: 'New York: Have to see Times Square, Museum of Natural History, ice skate at Rockefeller Center and pizza from the Bronx and a Rueben Sandwich Katz deli.', imageUrl: 'http://static.tumblr.com/b121baef5dad57a87b287f6708d45a20/f0op2g9/08vmihang/tumblr_static_worst-new-york-elite-daily-47.jpg'}),
      knex('buckets').insert({id: 12, userId: 1, comment: 'Tahiti: Swimming with Turtles', imageUrl: 'http://www.toptourscancun.com/images/photos/87/top-tours-cancun-cenotes-and-turtles-main.jpg'}),
      knex('buckets').insert({id: 13, userId: 1, comment: 'Stand up comedy gig', imageUrl: 'http://2.bp.blogspot.com/-pWEU-tF5Puw/UakZC7ErPjI/AAAAAAAACBg/ETWPk02I_xE/s1600/stund-up.pngclimb'}),
      knex('buckets').insert({id: 14, userId: 1, comment: 'Become an Ironman', imageUrl: 'http://www.ironman.com/~/media/f2dbd7c6de124cafaf4222962636afde/imnz%202015%20kessler%20wins.jpg?w=1600&h=980&c=1'}),

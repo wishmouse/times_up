@@ -44,11 +44,6 @@ passport.use(new FacebookStrategy({
 
   },
   function(accessToken, refreshToken, profile, callback) {
-    // console.log('-------------------------------------------')
-    // console.log('id = facebookId', profile.id)
-    // console.log('displayName = userName', profile.displayName)
-    // console.log('givenName = firstName', profile.name.givenName)
-    // console.log('gender = gender', profile.gender)
     knex('users').select('*').where({
       facebookId: profile.id
     }).then(function (resp){
@@ -71,16 +66,12 @@ passport.use(new FacebookStrategy({
 ))
 
 passport.serializeUser(function(user, cb) {
-  // console.log('-------------------------------------------')
-  // console.log('!serializer being called')
-  // console.log('user:', user)
+
   cb(null, user);
 });
 
 passport.deserializeUser(function(obj, cb) {
-  // console.log('-------------------------------------------')
-  // console.log('!deserializer being called')
-  // console.log('obj', obj)
+
   cb(null, obj);
 });
 
@@ -93,7 +84,6 @@ app.get('/', function(req, res){
 })
 
 app.get('/secret', function(req, res){
-  // console.log('req.user:', req.user)
   res.render('secret',{userId: req.user.id})
 })
 
@@ -114,47 +104,22 @@ app.get('/index/:id', function(req, res) {
   .then(function(data){
     knex('stats').where({gender: "female"})
       .then(function(response){
-        console.log("stats:response.female ", response)
+          console.log("req.body: ", req.body)
           knex('buckets').insert({comments: req.body.comments, imageUrl: req.body.imageUrl})
           .then(function(addBucket){
-            console.log('notes; ',req.body.comments)
-            console.log('url: ',req.body.imageUrl)
-            console.log('userId:',req.session.userId)
-            })
-
- res.render('index',{user: req.user, buckets: data, stats:response})
+          })
+            res.render('index',{user: req.user, buckets:data, stats:response})
       })
- })
-})
-
-app.post('/index/:id', function(req, res){
-  knex('buckets').insert({comments: req.body.comments, imageUrl: req.body.imageUrl})
-  .then(function(addBucket){
-     console.log('notes; ',req.body.comments)
-     console.log('url: ',req.body.imageUrl)
-     console.log('userId:',req.session.userId)
-  res.render('index',{user: req.user, buckets: data, stats:response})
   })
 })
-//=================================
-// ===========post an bucketlist===
-//=================================
 
-app.post('/index/:id', function(req, res){
-  knex('buckets').insert({comments:req.body.comments})
-    .then(function(addBucket){
-        console.log('comments; ',req.body.comments)
-        console.log('imageUrl: ',req.body.imagUrl)
-        console.log('userId:',req.session.userId)
-    })
-
-
-  res.render('index', xxx)
+app.post('/index', function(req, res){
+  knex('buckets').insert({comments: req.body.comments, imageUrl: req.body.imageUrl})
+  .then(function(addBucket){
+    res.render('index',{user: req.user, buckets:data, stats:response})
+  })
 })
-
-
-
-//=================================
+///=================================
 //=================================
 
 
