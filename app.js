@@ -39,7 +39,7 @@ app.use(passport.session());
 passport.use(new FacebookStrategy({
     clientID:'1718250611751481',
     clientSecret:'16603379730537292c6536951b8499c8',
-    callbackURL: "http://evening-ridge-31737.herokuapp.com/auth/facebook/callback",
+    callbackURL: "http://localhost:3000/auth/facebook/callback",
     profileFields: ['id', 'displayName', 'first_name', 'email', 'gender', 'hometown']
 
   },
@@ -119,7 +119,7 @@ app.post('/index', function(req, res){
 })
 
 
-app.listen(port, function(){
+app.listen(3000, function(){
   console.log("well its not dead.... 3000")
 })
 
