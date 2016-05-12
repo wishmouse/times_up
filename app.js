@@ -17,7 +17,7 @@ var router = require('express').Router();
 
 var readFile = Promise.denodeify(fs.readFile);
 var writeFile = Promise.denodeify(fs.writeFile);
-
+var port = process.env.PORT || 3000
 
 var knexConfig = require('./knexfile')
 var env = process.env.NODE_ENV || 'development'
@@ -117,11 +117,9 @@ app.post('/index', function(req, res){
     res.redirect('/index/'+req.user.id)
   })
 })
-///=================================
-//=================================
 
 
-app.listen(3000, function(){
+app.listen(port, function(){
   console.log("well its not dead.... 3000")
 })
 
