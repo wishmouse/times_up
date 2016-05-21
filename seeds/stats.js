@@ -1,9 +1,6 @@
 exports.seed = function(knex, Promise) {
   return Promise.join(
-    // Deletes ALL existing entries
     knex('stats').del(),
-
-    // Inserts seed entries
     knex('stats').insert({id: 1, causeOfDeath: 'Coronary Heart Disease', age: '15-24', rank: 1 , gender: 'female'}),
     knex('stats').insert({id: 2, causeOfDeath: 'Stroke', age: '15-24', rank: 2, gender: 'female'}),
     knex('stats').insert({id: 3, causeOfDeath: 'Lung disease', age: '15-24', rank: 3, gender: 'female'}),

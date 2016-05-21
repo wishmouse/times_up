@@ -4,119 +4,108 @@
   <link rel='stylesheet' type='text/css' href='../stylesheets/normalize.css'></link>
   <link rel='stylesheet' type='text/css' href='../stylesheets/skeleton.css'></link>
   <link rel='stylesheet' type='text/css' href='../stylesheets/style.css'></link>
-<link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
-
+  <link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
   <script src="/bundle.js"></script>
 </head>
-  <body>
-<div id='timer'>
-  <div class="container">
-    <div class="row">
-      <div class="twelve columns">
-        <center><H2>enter your birthdate:</H2>
-        <input type="date" name="birthday" id='birthday'><center>
-        <input type="submit" id="birthdaySubmit">
-      </div>
-    </div>
-  </div>
-</div>
-<div class="container">
-  <div class="row">
-    <div class="twelve columns">
-     <p>Hey {{user.firstName}} her some "fun" facts:</p>
-    </div>
-  </div>
-  <div class='row'>
-    <div class="four columns">
-      <p> you were born on a: <p>
-          <div class="facts" id='day'></div>
-    </div>
-    <div class="four columns">
-      <p> around :<p>
-        <div class="facts" id='yourAge'></div>
-    </div>
-    <div class="four columns">
-      <p>expiration date:<p>
-          <div class='facts'id='deathDate'></div>
-      </div>
-    </div>
-    <br>
-
-
- <div class='row'>
-  <div class="six columns">
-    <p>Oooh look, a countdown!
-   <div id="timeToGo">
-            <ul>
-                <li id="years"></li>
-                <li id="months"></li>
-                <li id="days"></li>
-                <li id="minutes"></li>
-                <li id="seconds"></li>
-            </ul>
-        </div>
-        <!-- these are optional -->
-        <div id="timeToGoLabels">
-            <ul>
-                <li>Years</li>
-                <li>Months</li>
-                <li>Days</li>
-                <li>Min</li>
-                <li>Sec</li>
-            </ul>
-        </div>
-
-  </div>
- </p>
-   <div class="six columns">
-    <div class='causes'>
-    top causes of death in <strong>{{user.gender}}'s</strong>:<br>
-      <i>
-    {{#each stats}}
-        * {{causeOfDeath}} <br>
-    {{/each}}
-      </i>
-      <br>
-    </div>
- </div>
-</div>
-
-
-<h2><center>time to create a bucket list!</center></h2>
-
-  <div class='row'>
-    <div class="three columns">
-        <form method="post" action="/index" >
-          <input id="browse" name="file" type="file" onChange="previewFile()"/><br>
-          <img src="" height="200" width="200"></img>
-          <div id="preview"></div>
-    </div>
-    <div class="nine columns"><br>
-        <input id="comments" type="text" name="comment" placeholder="bucket list .................................."></input><br>
-        <input id="imageUrl" type="text" name="imageUrl" placeholder="image url .................................."></input><br>
-        <input type='submit' value='submit'></input>
-    </div>
-        </form>
-  </div>
-
+<body>
+  <div id='timer'>
     <div class="container">
       <div class="row">
-        <div class="ten columns">
-          {{#each buckets}}
-            <div class="buckets">
-              <image src ='{{imageUrl}}' height='200' width='250' border-radius='25px'>
-              {{comment }}
-            </div>
-          {{/each}}
+        <div class="twelve columns">
+          <center><H2>enter your birthdate:</H2>
+            <input type="date" name="birthday" id='birthday'><center>
+            <input type="submit" id="birthdaySubmit">
+          </div>
         </div>
       </div>
     </div>
-</div>
-
-
-<p>
-<script src="../javascripts/bucketList.js"></script>
-<script src='../javascripts/countDown.js'></script>
-</body>
-</html>
+    <div class="container">
+      <div class="row">
+        <div class="twelve columns">
+         <p>Hey {{user.firstName}} her some "fun" facts:</p>
+       </div>
+     </div>
+     <div class='row'>
+      <div class="four columns">
+        <p> you were born on a: <p>
+          <div class="facts" id='day'></div>
+        </div>
+        <div class="four columns">
+          <p> around :<p>
+            <div class="facts" id='yourAge'></div>
+          </div>
+          <div class="four columns">
+            <p>expiration date:<p>
+              <div class='facts'id='deathDate'></div>
+            </div>
+          </div>
+          <br>
+          <div class='row'>
+            <div class="six columns">
+              <p>Oooh look, a countdown!
+               <div id="timeToGo">
+                <ul>
+                  <li id="years"></li>
+                  <li id="months"></li>
+                  <li id="days"></li>
+                  <li id="minutes"></li>
+                  <li id="seconds"></li>
+                </ul>
+              </div>
+              <div id="timeToGoLabels">
+                <ul>
+                  <li>Years</li>
+                  <li>Months</li>
+                  <li>Days</li>
+                  <li>Min</li>
+                  <li>Sec</li>
+                </ul>
+              </div>
+            </div>
+          </p>
+          <div class="six columns">
+            <div class='causes'>
+              top causes of death in <strong>{{user.gender}}'s</strong>:<br>
+              <i>
+                {{#each stats}}
+                * {{causeOfDeath}} <br>
+                {{/each}}
+              </i>
+              <br>
+            </div>
+          </div>
+        </div>
+        <h2><center>time to create a bucket list!</center></h2>
+        <div class='row'>
+          <div class="three columns">
+            <form method="post" action="/index" >
+              <input id="browse" name="file" type="file" onChange="previewFile()"/><br>
+              <img src="" height="200" width="200"></img>
+              <div id="preview"></div>
+            </div>
+            <div class="nine columns"><br>
+              <input id="comments" type="text" name="comment" placeholder="bucket list .................................."></input><br>
+              <input id="imageUrl" type="text" name="imageUrl" placeholder="image url .................................."></input><br>
+              <input type='submit' value='submit'></input>
+            </div>
+          </form>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="ten columns">
+              {{#each buckets}}
+              <div class="buckets">
+                <image src ='{{imageUrl}}' height='200' width='250' border-radius='25px'>
+                  {{comment }}
+                </div>
+                {{/each}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <p>
+          <script src="../javascripts/bucketList.js"></script>
+          <script src='../javascripts/countDown.js'></script>
+        </body>
+        </html>
 

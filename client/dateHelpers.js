@@ -5,7 +5,7 @@ var $ = require('jquery')
 moment() .format();
 
 function dateToDayOfWeek(date){
-    return moment(date).format('dddd')
+  return moment(date).format('dddd')
 }
 
 function yourAge(dateOfBirth){
@@ -18,22 +18,20 @@ function deathDate(dateOfBirth){
 
 
 function countdownTimer(dateOfBirth){
-    setInterval(function(){
-      var deathDate = moment(dateOfBirth).add(81.251, 'years')
-      //setting countdown
-      var years = moment.duration(deathDate - moment()).years()
-      var months = moment.duration(deathDate - moment()).months()
-      var days = moment.duration(deathDate - moment()).days()
-      var minutes = moment.duration(deathDate - moment()).minutes()
-      var seconds = moment.duration(deathDate - moment()).seconds()
-      $('#years').text(years)
-      $('#months').text(months)
-      $('#days').text(months)
-      $('#minutes').text(minutes)
-      $('#seconds').text(seconds)
-    }, 1000
-    )
-
+  setInterval(function(){
+    var deathDate = moment(dateOfBirth).add(81.251, 'years')
+    var years = moment.duration(deathDate - moment()).years()
+    var months = moment.duration(deathDate - moment()).months()
+    var days = moment.duration(deathDate - moment()).days()
+    var minutes = moment.duration(deathDate - moment()).minutes()
+    var seconds = moment.duration(deathDate - moment()).seconds()
+    $('#years').text(years)
+    $('#months').text(months)
+    $('#days').text(months)
+    $('#minutes').text(minutes)
+    $('#seconds').text(seconds)
+  }, 1000
+  )
   return setInterval
 }
 

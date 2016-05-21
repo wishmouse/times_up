@@ -32,17 +32,12 @@ app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveU
 app.use(passport.initialize());
 app.use(passport.session());
 
-//===================================
-// ===========Oauth =================
-//===================================
-
 passport.use(new FacebookStrategy({
-    clientID:'1718250611751481',
-    clientSecret:'16603379730537292c6536951b8499c8',
-    callbackURL: "http://localhost:3000/auth/facebook/callback",
-    profileFields: ['id', 'displayName', 'first_name', 'email', 'gender', 'hometown']
-
-  },
+  clientID:'1718250611751481',
+  clientSecret:'16603379730537292c6536951b8499c8',
+  callbackURL: "http://localhost:3000/auth/facebook/callback",
+  profileFields: ['id', 'displayName', 'first_name', 'email', 'gender', 'hometown']
+},
   function(accessToken, refreshToken, profile, callback) {
     knex('users').select('*').where({
       facebookId: profile.id
@@ -54,7 +49,6 @@ passport.use(new FacebookStrategy({
           firstName: profile.name.givenName,
           gender: profile.gender
         }
-
         knex('users').insert(user).then(function(resp){
           callback(null, user)
         })
@@ -66,20 +60,14 @@ passport.use(new FacebookStrategy({
 ))
 
 passport.serializeUser(function(user, cb) {
-
   cb(null, user);
 });
 
 passport.deserializeUser(function(obj, cb) {
-
   cb(null, obj);
 });
 
-//=================================
-//=========ROUTES =================
-//=================================
 app.get('/', function(req, res){
-
   res.render('signIn')
 })
 
@@ -87,14 +75,14 @@ app.get('/secret', function(req, res){
   res.render('secret',{userId: req.user.id})
 })
 
-app.get('/auth/facebook',  //sent to FB to authenticate
+app.get('/auth/facebook',
   passport.authenticate('facebook')
 );
 
 
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/auth/facebook' }),
-  function(req, res) { // Successful authentication, redirect home.
+  function(req, res) {
     res.redirect('/secret')
   }
 );
@@ -103,15 +91,14 @@ app.get('/index/:id', function(req, res) {
   knex('buckets').where('userId', req.user.id)
   .then(function(data){
     knex('stats').where({gender: "female"})
-      .then(function(response){
-        console.log("lines 107:", data)
-          res.render('index',{user: req.user, buckets:data, stats:response})
-      })
+    .then(function(response){
+      console.log("lines 107:", data)
+      res.render('index',{user: req.user, buckets:data, stats:response})
+    })
   })
 })
 
 app.post('/index', function(req, res){
-
   knex('buckets').insert({comment: req.body.comment, imageUrl: req.body.imageUrl, userId:req.user.id})
   .then(function(data){
     res.redirect('/index/'+req.user.id)
