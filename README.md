@@ -1,5 +1,5 @@
 Learning Objectives
-
+Personal project No.2
 
 #Repo
 
@@ -28,12 +28,7 @@ Stretch:
 [x] Use API for Cause of Death
 [] Use Cloudinary to save images.
 
-Personal Project No. 2.
 
-Objectives
-- full stack development
-- work with moment.js
-- Learn Cloudinary
 
 
 
