@@ -1,5 +1,6 @@
 Learning Objectives
 Personal project No.2
+[x]
 
 #Repo
 
@@ -16,7 +17,7 @@ https://github.com/wishmouse/times_up
 - moments.js
 
 
-#What milestones and timeline do you want to commit to MVP:
+#What milestones and timeline:
 
 [x] OAuth with Facebook
 [x] Database filtering and table joins with Postgres
