@@ -1,6 +1,6 @@
 Learning Objectives
 Personal project No.2
-[x]
+
 
 #Repo
 
@@ -18,16 +18,14 @@ https://github.com/wishmouse/times_up
 
 
 #What milestones and timeline:
-
-[x] OAuth with Facebook
-[x] Database filtering and table joins with Postgres
-[x] Countdown timer from birthday
-[x] Save image url to the database and return a image
+- OAuth with Facebook
+- Database filtering and table joins with Postgres
+- Countdown timer from birthday
+- Save image url to the database and return a image
 
 Stretch:
-
-[x] Use API for Cause of Death
-[] Use Cloudinary to save images.
+- Use API for Cause of Death
+- Use Cloudinary to save images.
 
 
 
